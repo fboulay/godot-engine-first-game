@@ -1,0 +1,21 @@
+= godot-engine-first-game
+
+First game using the godot engine
+
+== Introduction
+
+This is the implementation of the step by step tutorial of Godot Engine to create a first game : https://docs.godotengine.org/en/stable/getting_started/step_by_step/your_first_game.html
+
+== Run the game
+
+Open the project in the Godot Game Engine editor and play the project (default shortcut is F5).
+
+== Development
+
+Each commit should a playable game. I try to add new features on each commit just for fun
+
+image::docs/gameplay.gif[Gameplay]
+
+== Licence
+
+MIT licence
