@@ -4,13 +4,9 @@ extends Node
 export (PackedScene) var Mob
 var score
 
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
-
-
 	
 func game_over():
 	$ScoreTimer.stop()
@@ -50,8 +46,13 @@ func _on_MobTimer_timeout():
 func _on_ScoreTimer_timeout():
 	score += 1
 	$HUD.update_score(score)
+	
 
 
 func _on_StartTimer_timeout():
 	$MobTimer.start()
 	$ScoreTimer.start()
+
+
+func _on_FpsTimer_timeout():
+	$HUD.update_fps()

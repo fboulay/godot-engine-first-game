@@ -27,6 +27,9 @@ func show_game_over():
 	
 func update_score(score):
 	$ScoreLabel.text = str(score)
+	
+func update_fps():
+	$FPSCounter.text = str(Engine.get_frames_per_second())
 
 func _on_MessageTimer_timeout():
 	$MessageLabel.hide()
