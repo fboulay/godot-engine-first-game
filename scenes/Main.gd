@@ -3,12 +3,18 @@ extends Node
 
 export (PackedScene) var Mob
 var score
+var game_running = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
+
+func _input(event):
+	if !game_running && event.is_action_pressed("ui_cancel"):
+	  get_tree().quit()
 	
 func game_over():
+	game_running = false
 	$ScoreTimer.stop()
 	$MobTimer.stop()
 	$HUD.show_game_over()
@@ -17,6 +23,7 @@ func game_over():
 	
 func new_game():
 	score = 0
+	game_running = true
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
 	$HUD.update_score(score)
