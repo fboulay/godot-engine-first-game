@@ -4,9 +4,9 @@ signal hit
 
 export var speed = 400    # how fast the player will move (pixel/second)
 var screen_size           # size of the game window
-var is_mouse_pressed = false
-var is_mouse_dragging = false
-var last_position: Vector2
+var is_input_pressed = false
+var is_input_dragging = false
+var last_input_position: Vector2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,13 +14,16 @@ func _ready():
 	screen_size = get_viewport_rect().size
 
 func _input(event: InputEvent):
+	# check if the input device is pressed
 	if (event is InputEventMouseButton || event is InputEventScreenTouch):
-		is_mouse_pressed = event.is_pressed()	
-	is_mouse_dragging = (event is InputEventMouseMotion || event is InputEventScreenDrag) && is_mouse_pressed
+		is_input_pressed = event.is_pressed()	
+	# check if the input device is dragging
+	is_input_dragging = (event is InputEventMouseMotion || event is InputEventScreenDrag) && is_input_pressed
+	# record last pressed position when using click device
 	if event is InputEventMouseMotion:
-		last_position = get_viewport().get_mouse_position()
-	if event is InputEventScreenDrag:
-		last_position = event.position
+		last_input_position = get_viewport().get_mouse_position()
+	if (event is InputEventScreenDrag || event is InputEventScreenTouch):
+		last_input_position = event.position
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -60,8 +63,8 @@ func _compute_keyboard_input() -> Vector2:
 
 # Returns the velocity using the mouse (or touch) input
 func _compute_mouse_input() -> Vector2:
-	if is_mouse_dragging || is_mouse_pressed:
-		return last_position - position
+	if is_input_dragging || is_input_pressed:
+		return last_input_position - position
 	return Vector2()
 	
 func _on_Player_body_entered(body):
@@ -73,3 +76,7 @@ func start(pos):
 	position = pos
 	show()
 	$CollisionShape2D.disabled = false
+
+# simple function to display debug string in the HUD
+func debug(text: String):
+	get_node("/root/Main/HUD/Debug").text = text
