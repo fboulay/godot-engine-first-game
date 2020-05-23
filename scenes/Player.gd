@@ -64,7 +64,8 @@ func _compute_keyboard_input() -> Vector2:
 # Returns the velocity using the mouse (or touch) input
 func _compute_mouse_input() -> Vector2:
 	if is_input_dragging || is_input_pressed:
-		return last_input_position - position
+		# This test (x<3) is to avoid moving the player when clicking just next to his current position
+		return last_input_position - position if last_input_position.distance_to(position) > 3 else Vector2()
 	return Vector2()
 	
 func _on_Player_body_entered(body):
