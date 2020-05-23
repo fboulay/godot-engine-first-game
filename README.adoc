@@ -10,9 +10,15 @@ This is the implementation of the step by step tutorial of Godot Engine to creat
 
 Open the project in the Godot Game Engine editor and play the project (default shortcut is F5).
 
+== Try the game
+
+The game should be available at https://fboulay.github.io/godot-engine-first-game/
+
 == Development
 
 Each commit should a playable game. I try to add new features on each commit just for fun
+
+Here is a small screencast of what the game looks like.
 
 image::docs/gameplay.gif[Gameplay]
 
