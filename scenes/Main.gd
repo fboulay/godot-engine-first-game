@@ -19,7 +19,7 @@ func game_over():
 	$MobTimer.stop()
 	$HUD.show_game_over()
 	$DeathSound.play()
-	$Music.stop()
+	$MusicGame.stop()
 	
 func new_game():
 	score = 0
@@ -28,7 +28,8 @@ func new_game():
 	$StartTimer.start()
 	$HUD.update_score(score)
 	$HUD.show_message("Get Ready")
-	$Music.play()
+	$Menu.stop()
+	$MusicGame.play()
 
 
 func _on_MobTimer_timeout():
@@ -61,3 +62,6 @@ func _on_StartTimer_timeout():
 
 func _on_FpsTimer_timeout():
 	$HUD.update_fps()
+
+func _on_DeathSound_finished():
+	$Menu.play()

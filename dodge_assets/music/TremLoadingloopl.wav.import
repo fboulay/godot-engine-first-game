@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/TremLoadingloopl.wav-4df48d183d42694210c3b5fee89bbf35.sample"
+
+[deps]
+
+source_file="res://dodge_assets/music/TremLoadingloopl.wav"
+dest_files=[ "res://.import/TremLoadingloopl.wav-4df48d183d42694210c3b5fee89bbf35.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

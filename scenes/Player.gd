@@ -50,7 +50,7 @@ func _process(delta):
 
 # Returns the velocity using the keyboard input
 func _compute_keyboard_input() -> Vector2: 
-	var velocity: Vector2
+	var velocity = Vector2()
 	if Input.is_action_pressed("ui_right"):
 		velocity.x += 1
 	if Input.is_action_pressed("ui_left"):
