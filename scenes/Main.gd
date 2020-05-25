@@ -4,6 +4,7 @@ extends Node
 export (PackedScene) var Mob
 var score
 var game_running = false
+var next_mob
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,6 +20,7 @@ func game_over():
 	$ScoreTimer.stop()
 	$MobTimer.stop()
 	$HUD.show_game_over()
+	$MobAppearing.hide()
 	$DeathSound.play()
 	$MusicGame.stop()
 	
@@ -32,13 +34,12 @@ func new_game():
 	$Menu.stop()
 	$MusicGame.play()
 
-
-func _on_MobTimer_timeout():
-	# Choose a random location on Path2D.
+# The next mob is first shown with a hint
+func _draw_mob_hint():
+# Choose a random location on Path2D.
 	$MobPath/MobSpawnLocation.offset = randi()
 	 # Create a Mob instance and add it to the scene.
 	var mob = Mob.instance()
-	add_child(mob)
 	# Set the mob's direction perpendicular to the path direction.
 	var direction = $MobPath/MobSpawnLocation.rotation + PI / 2
 	# Set the mob's position to a random location.
@@ -50,7 +51,12 @@ func _on_MobTimer_timeout():
 	mob.linear_velocity = Vector2(rand_range(mob.min_speed, mob.max_speed), 0)
 	mob.linear_velocity = mob.linear_velocity.rotated(direction)
 	$HUD.connect("start_game", mob, "_on_start_game")
+	$MobAppearing.position = mob.position
+	next_mob = mob
 
+func _on_MobTimer_timeout():
+	add_child(next_mob)
+	_draw_mob_hint()
 
 func _on_ScoreTimer_timeout():
 	score += 1
@@ -59,6 +65,8 @@ func _on_ScoreTimer_timeout():
 func _on_StartTimer_timeout():
 	$MobTimer.start()
 	$ScoreTimer.start()
+	$MobAppearing.show()
+	_draw_mob_hint()
 
 func _on_FpsTimer_timeout():
 	$HUD.update_fps()
