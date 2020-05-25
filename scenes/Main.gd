@@ -6,7 +6,6 @@ var score
 var game_running = false
 var next_mob
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
 	$Player.connect("debug", $HUD, "debug")
