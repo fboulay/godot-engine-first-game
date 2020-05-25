@@ -3,7 +3,6 @@ extends CanvasLayer
 
 signal start_game
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -34,7 +33,10 @@ func update_fps():
 func _on_MessageTimer_timeout():
 	$MessageLabel.hide()
 
-
 func _on_StartButton_pressed():
 	$StartButton.hide()
 	emit_signal("start_game")
+
+# simple function to display debug string in the HUD
+func debug(text: String):
+	$Debug.text = text

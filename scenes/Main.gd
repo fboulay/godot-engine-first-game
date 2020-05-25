@@ -8,6 +8,7 @@ var game_running = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
+	$Player.connect("debug", $HUD, "debug")
 
 func _input(event):
 	if !game_running && event.is_action_pressed("ui_cancel"):
@@ -58,7 +59,6 @@ func _on_ScoreTimer_timeout():
 func _on_StartTimer_timeout():
 	$MobTimer.start()
 	$ScoreTimer.start()
-
 
 func _on_FpsTimer_timeout():
 	$HUD.update_fps()

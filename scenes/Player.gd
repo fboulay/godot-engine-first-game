@@ -1,6 +1,7 @@
 extends Area2D
 
 signal hit
+signal debug(text)
 
 export var speed = 400    # how fast the player will move (pixel/second)
 var screen_size           # size of the game window
@@ -35,6 +36,8 @@ func _process(delta):
 		$AnimatedSprite.play()
 	else:
 		$AnimatedSprite.stop()
+	
+	emit_signal("debug", "Current velocity is " + str(velocity.x) + ", " + str(velocity.y))
 	
 	position += velocity * delta
 	position.x = clamp(position.x, 0, screen_size.x)
@@ -78,6 +81,4 @@ func start(pos):
 	show()
 	$CollisionShape2D.disabled = false
 
-# simple function to display debug string in the HUD
-func debug(text: String):
-	get_node("/root/Main/HUD/Debug").text = text
+
