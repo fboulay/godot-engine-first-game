@@ -1,8 +1,8 @@
 extends RigidBody2D
 
 
-export var min_speed = 150
-export var max_speed = 250
+var min_speed = 150
+var max_speed = 250
 var mob_types = ["walk", "swim", "fly"]
 
 
@@ -13,10 +13,5 @@ func _ready():
 func _on_start_game():
 	queue_free()
 	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-
 func _on_VisibilityNotifier2D_screen_exited():
 	queue_free()

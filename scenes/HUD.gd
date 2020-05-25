@@ -2,6 +2,7 @@ extends CanvasLayer
 
 
 signal start_game
+signal change_difficulty
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -30,6 +31,9 @@ func update_score(score):
 func update_fps():
 	$FPSCounter.text = str(Engine.get_frames_per_second())
 
+func set_difficulty(text: String):
+	$DifficultyLabel.text = text
+
 func _on_MessageTimer_timeout():
 	$MessageLabel.hide()
 
@@ -40,3 +44,6 @@ func _on_StartButton_pressed():
 # simple function to display debug string in the HUD
 func debug(text: String):
 	$Debug.text = text
+
+func _on_difficulty_pressed():
+	emit_signal("change_difficulty")

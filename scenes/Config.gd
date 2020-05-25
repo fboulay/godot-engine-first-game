@@ -34,6 +34,9 @@ export var _LEVELS = {
 	},
 }
 
+func get_base_difficulty() -> int:
+	return Difficulty.EASY
+
 func get_mob_spawn_rate(difficulty: int) -> float:
 	return _LEVELS[difficulty][MOB_SPAWN_RATE]
 
@@ -45,3 +48,6 @@ func get_mob_max_speed(difficulty: int) -> float:
 
 func get_label(difficulty: int) -> float:
 	return _LEVELS[difficulty][LABEL]
+
+func next_difficulty(current_difficulty: int) -> int:
+	return (current_difficulty + 1) % _LEVELS.size()

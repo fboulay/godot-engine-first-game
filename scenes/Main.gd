@@ -2,13 +2,15 @@ extends Node
 
 
 export (PackedScene) var Mob
-var score
+var score = 0
 var game_running = false
 var next_mob
+onready var difficulty = $Config.get_base_difficulty()
 
 func _ready():
 	randomize()
 	$Player.connect("debug", $HUD, "debug")
+	$HUD.set_difficulty($Config.get_label(difficulty))
 
 func _input(event):
 	if !game_running && event.is_action_pressed("ui_cancel"):
@@ -43,6 +45,8 @@ func _draw_mob_hint():
 	var direction = $MobPath/MobSpawnLocation.rotation + PI / 2
 	# Set the mob's position to a random location.
 	mob.position = $MobPath/MobSpawnLocation.position
+	mob.min_speed = $Config.get_mob_min_speed(difficulty)
+	mob.max_speed = $Config.get_mob_max_speed(difficulty)
 	# Add some randomness to the direction.
 	direction += rand_range(-PI / 4, PI / 4)
 	mob.rotation = direction
@@ -62,6 +66,7 @@ func _on_ScoreTimer_timeout():
 	$HUD.update_score(score)
 	
 func _on_StartTimer_timeout():
+	$MobTimer.wait_time = $Config.get_mob_spawn_rate(difficulty)
 	$MobTimer.start()
 	$ScoreTimer.start()
 	$MobAppearing.show()
@@ -72,3 +77,7 @@ func _on_FpsTimer_timeout():
 
 func _on_DeathSound_finished():
 	$Menu.play()
+
+func _on_change_difficulty():
+	difficulty = $Config.next_difficulty(difficulty)
+	$HUD.set_difficulty($Config.get_label(difficulty))
