@@ -1,6 +1,9 @@
 extends Node
 
 
+signal game_started
+signal game_finished
+
 export (PackedScene) var Mob
 var score = 0
 var game_running = false
@@ -24,6 +27,7 @@ func game_over():
 	$MobAppearing.hide()
 	$DeathSound.play()
 	$MusicGame.stop()
+	emit_signal("game_finished")
 	
 func new_game():
 	score = 0
@@ -34,6 +38,7 @@ func new_game():
 	$HUD.show_message("Get Ready")
 	$Menu.stop()
 	$MusicGame.play()
+	emit_signal("game_started")
 
 # The next mob is first shown with a hint
 func _draw_mob_hint():

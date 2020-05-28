@@ -28,8 +28,8 @@ export var _LEVELS = {
 	},
 	Difficulty.HARDEST :{
 		LABEL: "Hardest",
-		MOB_SPAWN_RATE: 0.4,
-		MOB_SPEED_MIN : 200,
+		MOB_SPAWN_RATE: 0.3,
+		MOB_SPEED_MIN : 100,
 		MOB_SPEED_MAX : 300
 	},
 }

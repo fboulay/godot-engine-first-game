@@ -136,10 +136,12 @@ volume_db = -8.0
 [node name="MobAppearing" type="AnimatedSprite" parent="."]
 visible = false
 frames = SubResource( 2 )
-frame = 55
+frame = 32
 playing = true
 
 [node name="Config" parent="." instance=ExtResource( 9 )]
+[connection signal="game_finished" from="." to="HUD" method="_on_Main_game_finished"]
+[connection signal="game_started" from="." to="HUD" method="_on_Main_game_started"]
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]

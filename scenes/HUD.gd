@@ -47,3 +47,9 @@ func debug(text: String):
 
 func _on_difficulty_pressed():
 	emit_signal("change_difficulty")
+
+func _on_Main_game_started():
+	$DifficultyButton.hide()
+
+func _on_Main_game_finished():
+	$DifficultyButton.show()
