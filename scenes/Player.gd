@@ -41,13 +41,23 @@ func _process(delta):
 	position.x = clamp(position.x, 0, screen_size.x)
 	position.y = clamp(position.y, 0, screen_size.y)
 	
-	if velocity.x != 0:
+	
+	if _is_facing_right(velocity):
 		$AnimatedSprite.animation = "right"
-		$AnimatedSprite.flip_h = velocity.x < 0
 		$AnimatedSprite.flip_v = false
-	elif velocity.y != 0:
+		$AnimatedSprite.flip_h = false
+	elif _is_facing_left(velocity):
+		$AnimatedSprite.animation = "right"
+		$AnimatedSprite.flip_v = false
+		$AnimatedSprite.flip_h = true
+	elif _is_facing_up(velocity):
 		$AnimatedSprite.animation = "up"
-		$AnimatedSprite.flip_v = velocity.y > 0
+		$AnimatedSprite.flip_v = false
+		$AnimatedSprite.flip_h = false
+	elif _is_facing_down(velocity):
+		$AnimatedSprite.animation = "right"
+		$AnimatedSprite.flip_v = true
+		$AnimatedSprite.flip_h = false
 
 # Returns the velocity using the keyboard input
 func _compute_keyboard_input() -> Vector2: 
@@ -79,4 +89,22 @@ func start(pos: Vector2):
 	show()
 	$CollisionShape2D.disabled = false
 
+func _is_facing_right(vec: Vector2) -> bool:
+	if vec.x == 0 && vec.y == 0:
+		return false
+	return abs(vec.angle_to(Vector2(1, -1))) < PI/2 && abs(vec.angle_to(Vector2(1, 1))) < PI/2
 
+func _is_facing_left(vec: Vector2) -> bool:
+	if vec.x == 0 && vec.y == 0:
+		return false
+	return abs(vec.angle_to(Vector2(-1, -1))) < PI/2 && abs(vec.angle_to(Vector2(-1, 1))) < PI/2
+	
+func _is_facing_up(vec: Vector2) -> bool:
+	if vec.x == 0 && vec.y == 0:
+		return false
+	return abs(vec.angle_to(Vector2(-1, -1))) < PI/2 && abs(vec.angle_to(Vector2(1, -1))) < PI/2
+
+func _is_facing_down(vec: Vector2) -> bool:
+	if vec.x == 0 && vec.y == 0:
+		return false
+	return abs(vec.angle_to(Vector2(1, 1))) < PI/2 && abs(vec.angle_to(Vector2(-1, 1))) < PI/2

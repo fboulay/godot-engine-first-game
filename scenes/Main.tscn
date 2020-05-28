@@ -136,7 +136,7 @@ volume_db = -8.0
 [node name="MobAppearing" type="AnimatedSprite" parent="."]
 visible = false
 frames = SubResource( 2 )
-frame = 32
+frame = 53
 playing = true
 
 [node name="Config" parent="." instance=ExtResource( 9 )]
